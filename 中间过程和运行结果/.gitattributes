@@ -1,0 +1,5 @@
+运行结果1.jpg filter=lfs diff=lfs merge=lfs -text
+运行结果2.jpg filter=lfs diff=lfs merge=lfs -text
+模型运行结果.txt filter=lfs diff=lfs merge=lfs -text
+训练QA.png filter=lfs diff=lfs merge=lfs -text
+训练完成的截图.png filter=lfs diff=lfs merge=lfs -text

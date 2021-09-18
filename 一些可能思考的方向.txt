@@ -1,0 +1,28 @@
+第一次QA训练的时候，看到那个0000011111111111什么的串：
+--会不会和长度挂钩，然后训练模型的时候选择长度T，匹配到我们经常出现的文本长度/训练集中最大的文本长度/实际应用中最大的文本长度？
+
+对数据集本身的数据清洗：
+--文本当中有很多股票代码--这部分大概率在该任务中用处不大
+有一些数字（数量可能会存在匹配关系、时间），但实际删除以后的表现会如何？
+
+get_final_text修改为加上start end point的返回值问题
+
+具体的模型参数条件，适应不同的机器，有什么技巧
+#!/bin/bash
+BERT_DIR=../pretrain_model/chinese_L-12_H-768_A-12
+
+OUTDIR=./finetuned_squad
+
+python run_squad.py \
+  --vocab_file=$BERT_DIR/vocab.txt \
+  --bert_config_file=$BERT_DIR/bert_config.json \
+  --init_checkpoint=$BERT_DIR/bert_model.ckpt \
+  --do_train=True \
+  --train_file=../ccks/VU_squad2.0_train.json \
+  --train_batch_size=4 \
+  --learning_rate=3e-5 \
+  --num_train_epochs=4.0 \
+  --max_seq_length=512 \
+  --doc_stride=128 \
+  --output_dir=$OUTDIR \
+  --version_2_with_negative=True
