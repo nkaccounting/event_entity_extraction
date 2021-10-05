@@ -1,0 +1,2 @@
+CCKS2019-eval-task4[[:space:]]-更新.docx filter=lfs diff=lfs merge=lfs -text
+picture/* filter=lfs diff=lfs merge=lfs -text
