@@ -29,4 +29,7 @@ staticstic_length(df, 2, 5)
 # 统计文章长度
 staticstic_length(df, 1, 6)
 
+print(df[2].describe())
+print(df[2].value_counts())
+
 
