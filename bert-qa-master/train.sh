@@ -8,7 +8,7 @@ python run_squad.py \
   --bert_config_file=$BERT_DIR/bert_config.json \
   --init_checkpoint=$BERT_DIR/bert_model.ckpt \
   --do_train=True \
-  --train_file=../ccks/VU_squad2.0_train.json \
+  --train_file=../ccks/json/VU_squad2.0_train.json \
   --train_batch_size=4 \
   --learning_rate=3e-5 \
   --num_train_epochs=4.0 \
