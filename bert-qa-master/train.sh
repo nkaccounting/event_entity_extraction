@@ -9,6 +9,8 @@ python run_squad.py \
   --init_checkpoint=$BERT_DIR/bert_model.ckpt \
   --do_train=True \
   --train_file=../ccks/json/VU_squad2.0_train.json \
+  --do_predict=True \
+  --predict_file=../ccks/json/prediction.json \
   --train_batch_size=4 \
   --learning_rate=3e-5 \
   --num_train_epochs=4.0 \
