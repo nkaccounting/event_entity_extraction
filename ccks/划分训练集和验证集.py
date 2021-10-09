@@ -19,9 +19,11 @@ for train_index, validate_index in split_second.split(train_data, train_data[2])
     train_data_ = train_data.iloc[train_index]
     validate_data = train_data.iloc[validate_index]
 
-creat_json(train_data_, 'train')
-creat_json(validate_data, 'validate')
-creat_json(test_data, 'test')
+creat_json(train_data_, 'train', True)
+creat_json(validate_data, 'validate', True)
+creat_json(validate_data, 'validate--all_answer', False)
+creat_json(test_data, 'test', True)
+creat_json(test_data, 'test--all_answer', False)
 
 # 检验是否发生数据交叉
 train_index_set = set(train_data_.index)
