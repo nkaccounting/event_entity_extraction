@@ -17,6 +17,8 @@ import numpy as np
 
 OPTS = None
 
+result = {}
+
 
 def parse_args():
     parser = argparse.ArgumentParser('Official evaluation script for SQuAD version 2.0.')
@@ -68,14 +70,18 @@ def normalize_answer(s):
 
 def get_tokens(s):
     if not s: return []
-    return normalize_answer(s).split()
+    return list(normalize_answer(s))
 
 
 def compute_exact(a_gold, a_pred):
+    if a_pred in a_gold:
+        return 1
     return int(normalize_answer(a_gold) == normalize_answer(a_pred))
 
 
 def compute_f1(a_gold, a_pred):
+    if a_pred in a_gold:
+        return 1
     gold_toks = get_tokens(a_gold)
     pred_toks = get_tokens(a_pred)
     common = collections.Counter(gold_toks) & collections.Counter(pred_toks)
@@ -112,9 +118,13 @@ def get_raw_scores(dataset, preds):
                 # Take max over all gold answers
                 exact_scores[qid] = max(compute_exact(a, a_pred) for a in gold_answers)
                 f1_scores[qid] = max(compute_f1(a, a_pred) for a in gold_answers)
-                if exact_scores[qid]==0:
-                    print(gold_answers, a_pred)
-                    print(exact_scores[qid],f1_scores[qid])
+                if exact_scores[qid] == 0:
+                    result[qid] = {
+                        'context': p['context'],
+                        'question': qa['question'],
+                        'answers': (gold_answers, a_pred),
+                        'score': (exact_scores[qid], f1_scores[qid])
+                    }
     return exact_scores, f1_scores
 
 
@@ -304,3 +314,5 @@ if __name__ == '__main__':
         matplotlib.use('Agg')
         import matplotlib.pyplot as plt
     main()
+    with open("jsonFile.json", "w+") as jsonFile:
+        jsonFile.write(json.dumps(result, indent = 4,ensure_ascii=False))
