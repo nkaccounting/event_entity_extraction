@@ -92,3 +92,8 @@ def creat_json(df: pd.DataFrame, type: str, switcher: bool):
             'version': 'v2.0',
             'data': data
         }, fp, ensure_ascii=False, indent=2)
+
+if __name__ == '__main__':
+    df = pd.read_csv('eval.csv', header=None, index_col=None, encoding='utf-8')
+    df = df.fillna("#")
+    creat_json(df, 'all-eval', True)
