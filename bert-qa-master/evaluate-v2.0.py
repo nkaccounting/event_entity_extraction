@@ -315,4 +315,4 @@ if __name__ == '__main__':
         import matplotlib.pyplot as plt
     main()
     with open("jsonFile.json", "w+") as jsonFile:
-        jsonFile.write(json.dumps(result, indent = 4,ensure_ascii=False))
+        jsonFile.write(json.dumps(result, indent=4, ensure_ascii=False))
