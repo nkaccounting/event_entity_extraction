@@ -24,6 +24,8 @@ from run_squad import (
 curr_dir = os.path.abspath(os.path.dirname(__file__))
 sys.path.append(os.path.join(curr_dir, '..'))
 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
 
 class QAInput:
     def __init__(self, question: str, context: str) -> None:
@@ -570,20 +572,26 @@ def inference_from_half():
     inference = Inference(model_dir,
                           os.path.join(pretrain_dir, 'bert_config.json'),
                           os.path.join(pretrain_dir, 'vocab.txt'))
-    QAList = [
-        QAInput('高管负面', '今年6月，经检察机关批准，广州警方以涉嫌组织、领导传销活动罪对云联惠公司实际控制人黄某等主要犯罪嫌疑人执行逮捕'),
-        QAInput('我爱你', '今年6月，经检察机关批准，广州警方以涉嫌组织、领导传销活动罪对云联惠公司实际控制人黄某等主要犯罪嫌疑人执行逮捕'),
-        QAInput('业绩下滑', '今年6月，经检察机关批准，广州警方以涉嫌组织、领导传销活动罪对云联惠公司实际控制人黄某等主要犯罪嫌疑人执行逮捕'),
-        QAInput('蜜雪冰城甜蜜蜜', '今年6月，经检察机关批准，广州警方以涉嫌组织、领导传销活动罪对云联惠公司实际控制人黄某等主要犯罪嫌疑人执行逮捕'),
-        QAInput('营收爆增', '今年6月，经检察机关批准，广州警方以涉嫌组织、领导传销活动罪对云联惠公司实际控制人黄某等主要犯罪嫌疑人执行逮捕'),
-        QAInput('北京大学', '今年6月，经检察机关批准，广州警方以涉嫌组织、领导传销活动罪对云联惠公司实际控制人黄某等主要犯罪嫌疑人执行逮捕'),
-        QAInput('高管正面', '今年6月，经检察机关批准，广州警方以涉嫌组织、领导传销活动罪对云联惠公司实际控制人黄某等主要犯罪嫌疑人执行逮捕'),
-    ]
+    # QAList = [
+    #     QAInput('高管负面', '今年6月，经检察机关批准，广州警方以涉嫌组织、领导传销活动罪对云联惠公司实际控制人黄某等主要犯罪嫌疑人执行逮捕'),
+    #     QAInput('我爱你', '今年6月，经检察机关批准，广州警方以涉嫌组织、领导传销活动罪对云联惠公司实际控制人黄某等主要犯罪嫌疑人执行逮捕'),
+    #     QAInput('业绩下滑', '今年6月，经检察机关批准，广州警方以涉嫌组织、领导传销活动罪对云联惠公司实际控制人黄某等主要犯罪嫌疑人执行逮捕'),
+    #     QAInput('蜜雪冰城甜蜜蜜', '今年6月，经检察机关批准，广州警方以涉嫌组织、领导传销活动罪对云联惠公司实际控制人黄某等主要犯罪嫌疑人执行逮捕'),
+    #     QAInput('营收爆增', '今年6月，经检察机关批准，广州警方以涉嫌组织、领导传销活动罪对云联惠公司实际控制人黄某等主要犯罪嫌疑人执行逮捕'),
+    #     QAInput('北京大学', '今年6月，经检察机关批准，广州警方以涉嫌组织、领导传销活动罪对云联惠公司实际控制人黄某等主要犯罪嫌疑人执行逮捕'),
+    #     QAInput('高管正面', '今年6月，经检察机关批准，广州警方以涉嫌组织、领导传销活动罪对云联惠公司实际控制人黄某等主要犯罪嫌疑人执行逮捕'),
+    # ]
+    import pandas as pd
+
+    df = pd.read_csv('../ccks/eval.csv', header=None)
+
+    QAList = [QAInput(q, c) for c, q in zip(df[1], df[2])]
+
     for qa in QAList:
         data = [
             qa
         ]
-        results = inference.predict(data)
+        # results = inference.predict(data)
         # print(results)
         print(inference.predict_spans(data))
 

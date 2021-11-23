@@ -7,6 +7,5 @@ COPY pretrain_model /pretrain_model
 
 WORKDIR /bert-qa-master
 
-
 # 安装支持
 RUN ["chmod", "+x", "train.sh"]
