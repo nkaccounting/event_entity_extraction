@@ -6,7 +6,7 @@ tokenizers = AutoTokenizer.from_pretrained('./fine_tune_mrc_squad')
 
 pipeline = QuestionAnsweringPipeline(model=model, tokenizer=tokenizers)
 
-question = "涉嫌提前泄露"
+question = "重组失败"
 context = "股价连续涨停后大股东拟减持 双一科技涉嫌提前泄露未公开信息、炒作股价配合股东减持遭深交所问询恒泰艾普(300157)两高管涉嫌违规减持 瞒天过海1年后曝光酒鬼酒(000799)子公司账户近1亿存款被盗 已报案"
 
 res = pipeline(
