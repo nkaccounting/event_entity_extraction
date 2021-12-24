@@ -1,8 +1,8 @@
 from transformers import BertForQuestionAnswering, AutoTokenizer, QuestionAnsweringPipeline
 
-model = BertForQuestionAnswering.from_pretrained('./fine_tune_mrc_squad')
+model = BertForQuestionAnswering.from_pretrained('../../chinese_pretrain_mrc_roberta_wwm_ext_large')
 
-tokenizers = AutoTokenizer.from_pretrained('./fine_tune_mrc_squad')
+tokenizers = AutoTokenizer.from_pretrained('../../chinese_pretrain_mrc_roberta_wwm_ext_large')
 
 pipeline = QuestionAnsweringPipeline(model=model, tokenizer=tokenizers)
 
