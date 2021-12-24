@@ -1,6 +1,6 @@
 python3.8 run_seq2seq_qa.py \
-  --model_name_or_path t5-small \
-  --train_file VU_squad2.0_hug.json\
+  --model_name_or_path ./t5-base-Chinese \
+  --train_file ./data/VU_squad2.0_hug.json\
   --context_column context \
   --question_column question \
   --answer_column answers \
@@ -10,4 +10,4 @@ python3.8 run_seq2seq_qa.py \
   --num_train_epochs 2 \
   --max_seq_length 384 \
   --doc_stride 128 \
-  --output_dir ./tmp/debug_seq2seq_squad/
+  --output_dir ./fine_tune_seq2seq_squad/
