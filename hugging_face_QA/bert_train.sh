@@ -1,11 +1,13 @@
 python3.8 run_qa.py \
   --model_name_or_path ./chinese_pretrain_mrc_roberta_wwm_ext_large \
-  --train_file ./data/VU_squad2.0_hug.json\
+  --train_file ./data/json/VU_squad2.0_train.json\
+  --validation_file ./data/json/VU_squad2.0_validate.json\
   --version_2_with_negative \
   --do_train \
+  --do_eval\
   --per_device_train_batch_size 12 \
   --learning_rate 3e-5 \
-  --num_train_epochs 2 \
+  --num_train_epochs 10 \
   --max_seq_length 384 \
   --doc_stride 128 \
   --output_dir ./fine_tune_mrc_squad/
