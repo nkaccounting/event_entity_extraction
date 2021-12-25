@@ -6,12 +6,14 @@ tokenizers = AutoTokenizer.from_pretrained('./fine_tune_mrc_squad')
 
 pipeline = QuestionAnsweringPipeline(model=model, tokenizer=tokenizers)
 
-question = "重组失败"
-context = "股价连续涨停后大股东拟减持 双一科技涉嫌提前泄露未公开信息、炒作股价配合股东减持遭深交所问询恒泰艾普(300157)两高管涉嫌违规减持 瞒天过海1年后曝光酒鬼酒(000799)子公司账户近1亿存款被盗 已报案"
+# 测试之前的随机random query
+question = ["重组失败", '高管负面', '我爱你蜜雪冰城甜蜜蜜', '业绩下滑', '营收爆增', '北京大学', '高管正面']
+context = '今年6月，经检察机关批准，广州警方以涉嫌组织、领导传销活动罪对云联惠公司实际控制人黄某等主要犯罪嫌疑人执行逮捕'
 
 res = pipeline(
     question=question,
     context=context
 )
 
-print(res)
+for r in res:
+    print(r)
