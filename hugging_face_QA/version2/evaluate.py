@@ -15,7 +15,6 @@ import sys
 
 import numpy as np
 
-
 OPTS = None
 
 
@@ -78,7 +77,7 @@ def normalize_answer(s):
 def get_tokens(s):
     if not s:
         return []
-    return normalize_answer(s).split()
+    return list(normalize_answer(s))
 
 
 def compute_exact(a_gold, a_pred):
@@ -86,6 +85,8 @@ def compute_exact(a_gold, a_pred):
 
 
 def compute_f1(a_gold, a_pred):
+    if a_pred in a_gold:
+        return 1
     gold_toks = get_tokens(a_gold)
     pred_toks = get_tokens(a_pred)
     common = collections.Counter(gold_toks) & collections.Counter(pred_toks)
@@ -104,6 +105,7 @@ def compute_f1(a_gold, a_pred):
 def get_raw_scores(dataset, preds):
     exact_scores = {}
     f1_scores = {}
+    f = open("./out_no_reinit.txt", "w")
     for article in dataset:
         for p in article["paragraphs"]:
             for qa in p["qas"]:
@@ -118,7 +120,10 @@ def get_raw_scores(dataset, preds):
                 a_pred = preds[qid]
                 # Take max over all gold answers
                 exact_scores[qid] = max(compute_exact(a, a_pred) for a in gold_answers)
+                if exact_scores[qid] == 0:
+                    print(qid, gold_answers, a_pred,file=f)
                 f1_scores[qid] = max(compute_f1(a, a_pred) for a in gold_answers)
+    f.close()
     return exact_scores, f1_scores
 
 

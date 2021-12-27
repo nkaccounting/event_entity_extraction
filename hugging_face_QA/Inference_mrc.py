@@ -18,7 +18,7 @@ t1 = time.time()
 res = pipeline(
     question=question,
     context=context,
-    handle_impossible_answer=True
+    handle_impossible_answer=True,
 )
 t2 = time.time()
 for i, r in enumerate(res):

@@ -77,4 +77,4 @@ def creat_json(df: pd.DataFrame, type: str, switcher: bool):
 if __name__ == '__main__':
     df = pd.read_csv('train.csv', header=None, index_col=None, encoding='utf-8')
     df = df.fillna("#")
-    creat_json(df, 'train', True)
+    creat_json(df, 'all', True)
