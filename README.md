@@ -18,7 +18,7 @@ TODO： 后面如果要做multi-task的话，可以考虑把这种比较单一�
 
 由于从原来的TensorFlow版本迁移过来了，可以很方便地对一些已经训练好的mrc模型进行fine-tune
 
-之前只是利用了bert语言模型的先验信息，因此Q的设计比较简单，直接把类似当成了一个无实际意义的prompt
+之前只是利用了bert语言模型的先验信息，因此Q的设计比较简单，直接把类型当成了一个无实际意义的prompt
 
 考虑直接对chinese_pretrain_mrc_roberta_wwm_ext_large进行mrc提问
 
@@ -141,6 +141,7 @@ TODO： 后面如果要做multi-task的话，可以考虑把这种比较单一�
 
 
 整体效果也非常不错
+
 ##evaluate结果
 
 ***** eval metrics *****
@@ -159,12 +160,14 @@ TODO： 后面如果要做multi-task的话，可以考虑把这种比较单一�
   eval_samples           =    2759
   eval_total             =    2751
 
-10轮训练下来，相比于之前还有进一步的提升，但是evaluate并不能全面的反映好坏
+10轮训练下来，相比于之前还有进一步的提升，但是evaluate并不能全面的反映好坏；
+
+em大概是92.8，从之前88左右提升比较明显；f值由于计算方法的缘故，只要有猜中部分正确答案span都算对的情况下，导致f算出来特别高
 
 就像是考试得了100百分，不代表真的就没有知识薄弱了
 
 实际上基于mrc的fine-tune能够更好地处理unk的内容
 
-修改query的表达
+##修改query的表达
 
-两个子任务的共同需求都是要修改prompt的逻辑
+todo：seq2seq的修改prompt的逻辑
