@@ -7,6 +7,8 @@ import string
 import sys
 from collections import Counter
 
+import jieba
+
 
 def normalize_answer(s):
     """Lower text and remove punctuation, articles and extra whitespace."""
@@ -28,8 +30,8 @@ def normalize_answer(s):
 
 
 def f1_score(prediction, ground_truth):
-    prediction_tokens = normalize_answer(prediction).split()
-    ground_truth_tokens = normalize_answer(ground_truth).split()
+    prediction_tokens = jieba.lcut(normalize_answer(prediction))
+    ground_truth_tokens = jieba.lcut(normalize_answer(ground_truth))
     common = Counter(prediction_tokens) & Counter(ground_truth_tokens)
     num_same = sum(common.values())
     if num_same == 0:

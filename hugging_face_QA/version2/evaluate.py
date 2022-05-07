@@ -13,6 +13,7 @@ import re
 import string
 import sys
 
+import jieba
 import numpy as np
 
 OPTS = None
@@ -77,7 +78,7 @@ def normalize_answer(s):
 def get_tokens(s):
     if not s:
         return []
-    return list(normalize_answer(s))
+    return jieba.lcut(normalize_answer(s))
 
 
 def compute_exact(a_gold, a_pred):
